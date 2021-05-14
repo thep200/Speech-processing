@@ -33,7 +33,6 @@ def get_time_segment(path, word_means):
                 # time_segment.append(lines[lines.index(line) + 1][0:-1])
     return time_segment
 
-
 def extract_audio_segment():
     list_path = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
     for path in list_path:
