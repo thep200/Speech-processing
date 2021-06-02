@@ -2,11 +2,11 @@
 import os
 from pydub import AudioSegment
 
-class clean_speech:
+class extract_segments:
     
     def __init__(self):
-        self.output_path = 'data_export/'
-        self.input_path = 'datan/'
+        self.output_path = 'extracted_data/'
+        self.input_path = 'rawdata/'
         self.list_folder_data = os.listdir(self.input_path)
         self.list_name_data = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
         self.list_words = []
@@ -45,8 +45,9 @@ class clean_speech:
         return time_segment
 
 
-    def extract_audio_segment(self, count = 0):
+    def extract_audio_segment(self):
         for word in self.list_words:
+            count = 0
             if not self.list_words:
                 break
             else:
@@ -64,4 +65,5 @@ class clean_speech:
                             count = count + 1
                             Audio = AudioSegment.from_wav(self.input_path + name_fol + '/' + number + '.wav')
                             subaudio = Audio[_[0]:_[1]]
-                            subaudio.export(data_save_path + name_fol + '_' + number + '_' + str(count) + '.wav', format="wav")
+                            subaudio.export(data_save_path + f'{word}_{str(count)}' + '.wav', format="wav")
+                            # subaudio.export(data_save_path + name_fol + '_' + number + '_' + str(count) + '.wav', format="wav")
