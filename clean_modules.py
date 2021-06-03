@@ -65,5 +65,6 @@ class extract_segments:
                             count = count + 1
                             Audio = AudioSegment.from_wav(self.input_path + name_fol + '/' + number + '.wav')
                             subaudio = Audio[_[0]:_[1]]
+                            subaudio = subaudio.set_channels(1)   # convert from stero to mono 
                             subaudio.export(data_save_path + f'{word}_{str(count)}' + '.wav', format="wav")
                             # subaudio.export(data_save_path + name_fol + '_' + number + '_' + str(count) + '.wav', format="wav")

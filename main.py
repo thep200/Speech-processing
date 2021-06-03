@@ -6,11 +6,13 @@ from sklearn.model_selection import train_test_split
 
 if __name__ == '__main__':
     # cp = clean_modules.extract_segments()
-     # cp.set_your_list_word(['em'])
+    # cp.set_your_list_word(['cao', 'cho', 'mua', 'sinh', 'theo', 'trong', 'việt', 'nam'])
     # cp.extract_audio_segment()
+    # path = 'code example/fruits/data_fruits/'
+    path = 'test_code_data/'
 
     mfcc = mfcc_extract.mfcc()
-    mfcc.set_input_path('code example/fruits/data_fruits/')
+    mfcc.set_input_path(path)
     mfcc.show_data_file()
     all_obs = mfcc.get_mfcc()
     all_labels = mfcc.set_lables()[1]
