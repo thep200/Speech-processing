@@ -1,23 +1,19 @@
-import clean_modules
+# import clean_modules
 import mfcc_extract
 import gmmhmm_model
 import numpy as np
 from sklearn.model_selection import train_test_split
 
 if __name__ == '__main__':
-    cp = clean_modules.extract_segments()
+    # cp = clean_modules.extract_segments()
      # cp.set_your_list_word(['em'])
     # cp.extract_audio_segment()
 
     mfcc = mfcc_extract.mfcc()
-    gmm_hmm = gmmhmm_model.gmmhmm(6)
-
     mfcc.set_input_path('code example/fruits/data_fruits/')
-
-    print(mfcc.show_data_file())
-
-    _, all_labels = mfcc.set_lables()
+    mfcc.show_data_file()
     all_obs = mfcc.get_mfcc()
+    all_labels = mfcc.set_lables()[1]
 
     for n,i in enumerate(all_obs):
         all_obs[n] /= all_obs[n].sum(axis=0)
@@ -29,7 +25,7 @@ if __name__ == '__main__':
 
     ys = set(all_labels)
 
-    ms = [gmm_hmm(6) for y in ys]
+    ms = [gmmhmm_model.gmmhmm() for y in ys]
 
     _ = [m.fit(X_train[y_train == y, :, :]) for m, y in zip(ms, ys)]
 
@@ -42,13 +38,3 @@ if __name__ == '__main__':
     missed = (predicted_labels != y_test)
 
     print('Test accuracy: %.2f percent' % (100 * (1 - np.mean(missed))))
-
-
-
-
-
-
-   
-
-    
-

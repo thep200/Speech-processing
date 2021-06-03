@@ -3,7 +3,7 @@ import numpy as np
 
 class gmmhmm:
     
-    def __init__(self, n_states = 4):
+    def __init__(self, n_states = 6):
         self.n_states = n_states
         self.random_state = np.random.RandomState(0)
 
@@ -57,7 +57,6 @@ class gmmhmm:
         return (x + (x == 0)) / np.sum(x, axis=1)
     
     def _em_init(self, obs):
-        #Using this _em_init function allows for less required constructor args
         if self.n_dims is None:
             self.n_dims = obs.shape[0]
         if self.mu is None:
