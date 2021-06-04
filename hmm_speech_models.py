@@ -4,14 +4,15 @@ import pickle
 import librosa
 import numpy as np
 import hmmlearn.hmm as hmm
+from scipy.signal import savgol_filter
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 
 class Gaussian_hmm():
 
     def __init__(self):
-        self.labels_audio_names = ['_con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển']
-        self.states = [6, 9, 6, 6, 9, 12]
+        self.labels_audio_names = ['ba', 'bảy', 'bốn', 'chín', 'có', 'hai', 'không', 'một', 'năm', 'sáu', 'tám', 'ngày', 'tháng']
+        self.states = [9, 12, 12, 12, 12, 9, 9, 12, 9, 12, 12, 12, 12]
         self.input_path = 'test_code_data/'
         self.models_save_path = 'models_save/'
         self.load_models = {}
@@ -30,6 +31,9 @@ class Gaussian_hmm():
     def set_test_size(self, test_size):
         self.test_size = test_size
 
+    def set_states(self, list_states):
+        self.states = list_states
+
     def show_file_data(self):
         length = 0
         for name in self.labels_audio_names:
@@ -41,6 +45,8 @@ class Gaussian_hmm():
     def get_mfcc(self, file_path):
         y, sr = librosa.load(file_path)
 
+        y = savgol_filter(y, 5, 2, mode='nearest')
+
         # 10ms hop
         hop_length = math.floor(sr*0.010) 
         
@@ -50,12 +56,14 @@ class Gaussian_hmm():
         # mfcc is 12 x T matrix
         mfcc = librosa.feature.mfcc(y, sr, n_mfcc=12, n_fft=1024, hop_length=hop_length, win_length=win_length)
         
+        # mfcc = librosa.segment.recurrence_matrix(mfcc, mode='connectivity')
+
         # substract mean from mfcc --> normalize mfcc
         mfcc = mfcc - np.mean(mfcc, axis=1).reshape((-1,1)) 
         
         # delta feature 1st order and 2nd order
-        delta1 = librosa.feature.delta(mfcc, order=1)
-        delta2 = librosa.feature.delta(mfcc, order=2)
+        delta1 = librosa.feature.delta(mfcc, order=1, mode='nearest')
+        delta2 = librosa.feature.delta(mfcc, order=2, mode='nearest')
         
         # X is 36 x T
         X = np.concatenate([mfcc, delta1, delta2], axis=0) # O^r
@@ -100,7 +108,7 @@ class Gaussian_hmm():
     # save model
     def save_model(self, model):
         for cname in self.labels_audio_names:
-            name = f'{self.models_save_path}{cname}.model'
+            name = f'{self.models_save_path}model_{cname}.model'
             with open(name, 'wb') as file: 
                 pickle.dump(model[cname], file)
 
@@ -124,8 +132,10 @@ class Gaussian_hmm():
     # load models
     def load_model_words(self):
         for key in self.labels_audio_names:
-            name = f'{self.models_save_path}{key}.model'
+            name = f'{self.models_save_path}model_{key}.model'
             with open(name, 'rb') as file:
                 self.load_models[key] = pickle.load(file)
-        print(self.load_models)
+        return self.load_models
 
+
+    
