@@ -6,7 +6,7 @@ from scipy.io.wavfile import write
 class speech_to_text:
 
     def __init__(self):
-        self.duration = 1
+        self.duration = 0.5
         self.samplerate = 44100
         self.hsm = hsm.Gaussian_hmm()
         self.labels_audio_names = self.hsm.labels_audio_names

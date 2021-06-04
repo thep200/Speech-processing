@@ -7,16 +7,16 @@ if __name__ == '__main__':
 
     # ---------------------------- extrac segment ----------------------------
     # cp = clean_modules.extract_segments()
-    # cp.set_your_list_word(['bảy', 'tám'])
+    # cp.set_your_list_word(['con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển'])
     # cp.extract_audio_segment()
    
     # --------------------------- ttraining data ------------------------------
     hsm = hsm.Gaussian_hmm()
-    # path = 'code example/canandcannot/data/'
-    # list_labels_name = ['_con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển']
-
+    
     # hsm.set_input_path('extracted_data/')
-    # hsm.set_labels_audio(list_labels_name)
+    # hsm.set_labels_audio()
+    # hsm.set_states([9, 12, 12, 12, 9, 12])
+
     hsm.set_test_size(0.2)
 
     # check số kích thước dữ liệu và thống kê các file là tên của các word
