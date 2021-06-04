@@ -1,42 +1,35 @@
 # import clean_modules
-import mfcc_extract
-import gmmhmm_model
+import hmm_speech_models as hsm
 import numpy as np
 from sklearn.model_selection import train_test_split
 
 if __name__ == '__main__':
     # cp = clean_modules.extract_segments()
-    # cp.set_your_list_word(['cao', 'cho', 'mua', 'sinh', 'theo', 'trong', 'việt', 'nam'])
+    # cp.set_your_list_word(['con'])
     # cp.extract_audio_segment()
-    # path = 'code example/fruits/data_fruits/'
-    path = 'test_code_data/'
+   
+    hsm = hsm.Gaussian_hmm()
+    
+    # path = 'code example/canandcannot/data/'
+    # list_labels_name = ['_con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển']
 
-    mfcc = mfcc_extract.mfcc()
-    mfcc.set_input_path(path)
-    mfcc.show_data_file()
-    all_obs = mfcc.get_mfcc()
-    all_labels = mfcc.set_lables()[1]
+    # hsm.set_input_path(path)
+    # hsm.set_labels_audio(list_labels_name)
+    hsm.set_test_size(0.3)
 
-    for n,i in enumerate(all_obs):
-        all_obs[n] /= all_obs[n].sum(axis=0)
+    # print(hsm.__str__())
 
-    X_train, X_test, y_train, y_test = train_test_split(all_obs, all_labels, test_size=0.1, random_state=0)
+    hsm.show_file_data()                
 
-    print('Size of training matrix:', X_train.shape)
-    print('Size of testing matrix:', X_test.shape)
+    # extract feature gán labels và chia tập train test
+    X, y = hsm.build_data()
 
-    ys = set(all_labels)
+    # extract model
+    model = hsm.hmm_training(X)
 
-    ms = [gmmhmm_model.gmmhmm() for y in ys]
+    # lưu model
+    hsm.save_model(model)
 
-    _ = [m.fit(X_train[y_train == y, :, :]) for m, y in zip(ms, ys)]
+    hsm.load_model_words()
 
-    ps = [m.transform(X_test) for m in ms]
-
-    res = np.vstack(ps)
-
-    predicted_labels = np.argmax(res, axis=0)
-
-    missed = (predicted_labels != y_test)
-
-    print('Test accuracy: %.2f percent' % (100 * (1 - np.mean(missed))))
+    print(hsm.model_test(X, y, model))

@@ -60,11 +60,11 @@ class extract_segments:
                     print(f'processing {name_fol} .....')
                     for number in self.list_name_data:
                         # get time that responsible segment
-                        list_segment = self.get_time_segment(self.input_path + name_fol + '/' + number + '.srt', word)
+                        list_segment = self.get_time_segment(f'{self.input_path}{name_fol}/{number}.srt', word)
                         for _ in list_segment:
                             count = count + 1
-                            Audio = AudioSegment.from_wav(self.input_path + name_fol + '/' + number + '.wav')
+                            Audio = AudioSegment.from_wav(f'{self.input_path}{name_fol}/{number}.wav')
                             subaudio = Audio[_[0]:_[1]]
                             subaudio = subaudio.set_channels(1)   # convert from stero to mono 
-                            subaudio.export(data_save_path + f'{word}_{str(count)}' + '.wav', format="wav")
+                            subaudio.export(f'{data_save_path}{word}_{str(count)}.wav', format="wav")
                             # subaudio.export(data_save_path + name_fol + '_' + number + '_' + str(count) + '.wav', format="wav")
