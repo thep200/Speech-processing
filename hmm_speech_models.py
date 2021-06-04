@@ -11,11 +11,9 @@ from sklearn.model_selection import train_test_split
 class Gaussian_hmm():
 
     def __init__(self):
-        # ['ba', 'bảy', 'bốn', 'chín', 'có', 'hai', 'không', 'một', 'năm', 'sáu', 'tám', 'ngày', 'tháng', 'lớp']
-        # [9, 12, 12, 12, 12, 9, 9, 12, 9, 12, 12, 12, 12, 12]
-        self.labels_audio_names = ['_con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển']
-        self.states = [9, 12, 12, 12, 9, 12]
-        self.input_path = 'test_code_data/'
+        self.labels_audio_names = ['ba', 'bảy', 'bốn', 'chín', 'có', 'hai', 'không', 'một', 'năm', 'sáu', 'tám', 'ngày', 'tháng', 'lớp', '_con', 'hàng', 'học', 'nhà', 'sinh', 'tuyển']
+        self.states = [9, 12, 12, 12, 12, 9, 9, 12, 9, 12, 12, 12, 12, 12, 9, 12, 12, 12, 9, 12]
+        self.input_path = 'data/test_code_data/'
         self.models_save_path = 'models_save/'
         self.load_models = {}
         self.test_size = 0.2

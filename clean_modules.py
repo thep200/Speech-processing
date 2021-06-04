@@ -5,8 +5,8 @@ from pydub import AudioSegment
 class extract_segments:
     
     def __init__(self):
-        self.output_path = 'extracted_data/'
-        self.input_path = 'rawdata/'
+        self.output_path = 'data/extracted_data/'
+        self.input_path = 'data/rawdata/'
         self.list_folder_data = os.listdir(self.input_path)
         self.list_name_data = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
         self.list_words = []

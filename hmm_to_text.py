@@ -11,7 +11,7 @@ class speech_to_text:
         self.hsm = hsm.Gaussian_hmm()
         self.labels_audio_names = self.hsm.labels_audio_names
         self.model = self.hsm.load_model_words()
-        self.audio_record_path = 'audio_record_save/'
+        self.audio_record_path = 'data/audio_record_save/'
 
     def set_durations(self, duration):
         self.duration = duration

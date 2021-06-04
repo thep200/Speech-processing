@@ -13,11 +13,11 @@ if __name__ == '__main__':
     # --------------------------- ttraining data ------------------------------
     hsm = hsm.Gaussian_hmm()
     
-    # hsm.set_input_path('extracted_data/')
+    # hsm.set_input_path('data/extracted_data/')
     # hsm.set_labels_audio()
-    # hsm.set_states([9, 12, 12, 12, 9, 12])
+    # hsm.set_states()
 
-    hsm.set_test_size(0.2)
+    hsm.set_test_size(0.1)
 
     # check số kích thước dữ liệu và thống kê các file là tên của các word
     hsm.show_file_data()                
