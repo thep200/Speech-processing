@@ -33,4 +33,6 @@ class speech_to_text:
         predict_word = self.labels_audio_names[np.argmax(scores)]
         # os.remove(f'{self.audio_record_path}output.wav')
         return predict_word
+
+
         

@@ -11,33 +11,36 @@ if __name__ == '__main__':
     # cp.extract_audio_segment()
    
     # --------------------------- ttraining data ------------------------------
-    hsm = hsm.Gaussian_hmm()
+    # hsm = hsm.Gaussian_hmm()
     
-    # hsm.set_input_path('data/extracted_data/')
-    # hsm.set_labels_audio()
-    # hsm.set_states()
+    # # hsm.set_input_path('data/extracted_data/')
+    # # hsm.set_labels_audio()
+    # # hsm.set_states()
 
-    hsm.set_test_size(0.1)
+    # hsm.set_test_size(0.1)
 
-    # check số kích thước dữ liệu và thống kê các file là tên của các word
-    hsm.show_file_data()                
+    # # check số kích thước dữ liệu và thống kê các file là tên của các word
+    # hsm.show_file_data()                
 
-    # extract feature gán labels và chia tập train test
-    X, y = hsm.build_data()
+    # # extract feature gán labels và chia tập train test
+    # X, y = hsm.build_data()
 
-    # extract model
-    model = hsm.hmm_training(X)
+    # # extract model
+    # model = hsm.hmm_training(X)
 
-    # lưu model
-    hsm.save_model(model)
+    # # lưu model
+    # hsm.save_model(model)
 
-    # chạy thử tập test
-    print(hsm.model_test(X, y, model))
+    # # chạy thử tập test
+    # print(hsm.model_test(X, y, model))
 
-    # thử load model lên
-    print(hsm.load_model_words())
+    # # thử load model lên
+    # print(hsm.load_model_words())
 
     # ------------------speech to text ------------------------------
-    # stt = hmm_to_text.speech_to_text()
-    # stt.audio_record()
-    # print(f'This text is : {stt.check_speech_word()}')
+    stt = hmm_to_text.speech_to_text()
+    stt.audio_record()
+    print(f'This text is : {stt.check_speech_word()}')
+
+
+    
