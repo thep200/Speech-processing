@@ -10,14 +10,24 @@ Speech to text với bộ dữ liệu ở bài tập nhỏ lần 1 của lớp
 ## Mô hình sử dụng
 - HMM 
 
+## Phương pháp thực hiện
+- từ rawdata của lớp extract ra các đoạn audio ứng với các từ muốn sử dụng
+- dùng hàm `librosa.feature.mfcc` để lấy extract các fextures của các đoạn audio đó
+- build dataset, gán labels và chia tập training và test
+- sử dụng thư viện `hmmlearn` để training dữ liệu ở trên
+- theo dõi report test sau training và xuất ra models của các từ
+- implements models vào app
+    - âm thanh đầu vào được ghi trực tiếp từ app và chuyển đến module nhận diện.
+    - module predict words được build sử dụng models ở phần trên để dự đoán
+    - âm thanh chuyển vào module predict và xuất ra text tương ứng.
+    - render đoạn text tương ứng lên màn hình
+
 ## Tài liệu tham khảo
 - [Filter banks, Mel-Frequency Cepstral Coefficients](https://haythamfayek.com/2016/04/21/speech-processing-for-machine-learning.html)
 
 - [API Reference](https://hmmlearn.readthedocs.io/en/latest/api.html?fbclid=IwAR2kPKglFcpcRx7wAwPR-Z4-4Q8_fL8A0oFScnE6KHrtLf_qoMevIDB7W1k#hmmlearn.hmm.GaussianHMM)
 
 - [librosa.feature.mfcc](https://librosa.org/doc/main/generated/librosa.feature.mfcc.html?fbclid=IwAR0yygIVKcgi0yOEBBKwq70s9fPQB7uoprh8cvbZI8e6aCJCQEmw2vtola8)
-
-- [Implementation of a GmmHmm](https://colab.research.google.com/github/kastnerkyle/kastnerkyle.github.io/blob/master/posts/single-speaker-word-recognition-with-hidden-markov-models/single-speaker-word-recognition-with-hidden-markov-models.ipynb?fbclid=IwAR1P2F-GPfTBDES8YI7DJ2y0egFSH0JytYUu9r7Ajkrh8zZcCx_9v6A94dE#scrollTo=zlwc1ohoje-2)
 
 - [librosa.feature.delta](http://man.hubwiz.com/docset/LibROSA.docset/Contents/Resources/Documents/generated/librosa.feature.delta.html?fbclid=IwAR22exjc2QvPAH-oztKJfPkAJCRIU7PhaXKtnUQLq4BYfRABH1J_jRR-DoA)
 
